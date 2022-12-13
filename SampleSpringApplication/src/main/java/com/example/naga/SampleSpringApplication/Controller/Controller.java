@@ -1,6 +1,7 @@
 package com.example.naga.SampleSpringApplication.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,12 @@ public class Controller
 		return "Hii This is my first Rest API called at: "+date.toString();
 	}
 	
+	@GetMapping("/getdata")
+	public List<Customer2> getAllRecords()
+	{
+		return custRepo.findAll();
+	}
+
 	@PostMapping("/savedata")
 	public Customer2 saveCust(@RequestBody InputCustomer inCustomer)
 	{
