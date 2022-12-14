@@ -2,10 +2,13 @@ package com.example.naga.SampleSpringApplication.Controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,5 +45,22 @@ public class Controller
 		Customer2 cust=new Customer2(inCustomer.getId(),inCustomer.getName());
 		return custRepo.save(cust);
 //		return "saved Succussfully";	
+	}
+	
+	@PutMapping("/updaterecord")
+	public Customer2 updateCust(@RequestBody InputCustomer incustomer)
+	{
+		Optional<Customer2> c=custRepo.findById(incustomer.getId());
+		Customer2 customer2=c.get();
+		customer2.setName(incustomer.getName());
+		return custRepo.save(customer2);
+	}
+	
+	@DeleteMapping("/deleterecord")
+	public void deleteCust(@RequestBody InputCustomer incustomer)
+	{
+		Optional<Customer2> c=custRepo.findById(incustomer.getId());
+		Customer2 customer2=c.get();
+		custRepo.delete(customer2);
 	}
 }
